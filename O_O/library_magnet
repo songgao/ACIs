@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# copy dynamic libraries to $PWD, maintaining directory structures
+
+shared_libs() {
+  ldd $1 > /dev/null || return
+  ldd $1 | awk 'NF == 4 {print $3}; NF == 2 {print $1}'
+}
+
+for lib in $(shared_libs $1);
+do
+  dst=$PWD$lib
+  mkdir -p $(dirname $dst)
+  cp -L $lib $dst
+  chmod a+x $dst # in case the symlink target doesn't have 'x' permission
+done

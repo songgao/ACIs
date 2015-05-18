@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cat <<EOF
+{
+  "acKind": "ImageManifest",
+  "acVersion": "0.5.1",
+  "name": "$1",
+  "labels": [
+    {"name": "os", "value": "linux"},
+    {"name": "arch", "value": "amd64"}
+  ]
+}
+EOF
